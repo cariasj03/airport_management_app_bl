@@ -5,34 +5,31 @@ package cr.ac.ucenfotec.bl;
  * @version 1.0
  * @since 26/10/2022
  *
- * Esta clase se encarga de gestionar todos los objetos Puerta
+ * Esta clase se encarga de gestionar todos los objetos Pais
  */
 
-public class Puerta {
+public class Pais {
     /**
      * Declaracion de atributos del objeto
      */
     private String codigo;
     private String nombre;
-    private Ubicacion ubicacion;
 
     //Seteo de los constructores
     /**
      * Este es el constructor por defecto
      */
-    public Puerta() {
+    public Pais() {
     }
 
     /**
      * Este es el constructor con todos los atributos
-     * @param codigo es de tipo String y corresponde al codigo de la puerta
-     * @param nombre es de tipo String y corresponde al nombre de la puerta
-     * @param ubicacion es de tipo Ubicacion y corresponde a la ubicacion de la puerta
+     * @param codigo es de tipo String y corresponde al codigo del pais
+     * @param nombre es de tipo String y corresponde al nombre del pais
      */
-    public Puerta(String codigo, String nombre, Ubicacion ubicacion) {
+    public Pais(String codigo, String nombre) {
         this.codigo = codigo;
         this.nombre = nombre;
-        this.ubicacion = ubicacion;
     }
 
     /**
@@ -54,24 +51,15 @@ public class Puerta {
         this.nombre = nombre;
     }
 
-    public Ubicacion getUbicacion() {
-        return ubicacion;
-    }
-
-    public void setUbicacion(Ubicacion ubicacion) {
-        this.ubicacion = ubicacion;
-    }
-
     /**
      * Metodo que devuelve los atributos en formato String
      * @return devuelve todos los atributos del objeto en formato String
      */
     @Override
     public String toString() {
-        return "Puerta{" +
+        return "Pais{" +
                 "codigo='" + codigo + '\'' +
                 ", nombre='" + nombre + '\'' +
-                ", ubicacion=" + ubicacion +
                 '}';
     }
 }
