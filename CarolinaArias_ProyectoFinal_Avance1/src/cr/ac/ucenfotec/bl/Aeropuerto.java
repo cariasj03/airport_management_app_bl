@@ -36,6 +36,16 @@ public class Aeropuerto {
     }
 
     /**
+     * Este es un constructor con los atributos de tipo simple
+     * @param nombre es de tipo String y corresponde al nombre del aeropuerto
+     * @param codigo es de tipo String y corresponde al codigo del aeropuerto
+     */
+    public Aeropuerto(String nombre, String codigo) {
+        this.nombre = nombre;
+        this.codigo = codigo;
+    }
+
+    /**
      * Getters y setters de los atributos del objeto
      */
     public String getNombre() {
