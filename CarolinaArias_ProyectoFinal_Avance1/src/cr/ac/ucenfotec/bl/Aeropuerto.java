@@ -36,7 +36,7 @@ public class Aeropuerto {
     }
 
     /**
-     * Este es un constructor con los atributos de tipo simple
+     * Este es un constructor con los atributos de tipo nativo
      * @param nombre es de tipo String y corresponde al nombre del aeropuerto
      * @param codigo es de tipo String y corresponde al codigo del aeropuerto
      */

@@ -78,6 +78,29 @@ public class Vuelo {
     }
 
     /**
+     * Este es un constructor con los atributos de tipo nativo
+     * @param numeroVuelo es de tipo int y corresponde al numero del vuelo
+     * @param horaSalida es de tipo LocalTime y corresponde a la hora de salida del vuelo
+     * @param horaLlegada es de tipo LocalTime y corresponde a la hora de llegada del vuelo
+     * @param estado es de tipo String y corresponde al estado del vuelo
+     * @param tipoVuelo es de tipo String y corresponde al tipo de vuelo
+     * @param cantAsientosDiponibles es de tipo int y corresponde a la cantidad de asientos disponibles en el vuelo
+     * @param precioAsientos es de tipo double y corresponde al precio de los asientos del vuelo
+     * @param montoImpuesto es de tipo double y corresponde al monto del impuesto para los tiquetes del vuelo
+     */
+    public Vuelo(int numeroVuelo, LocalTime horaSalida, LocalTime horaLlegada, String estado, String tipoVuelo, int cantAsientosDiponibles, double precioAsientos, double montoImpuesto) {
+        this.numeroVuelo = numeroVuelo;
+        this.horaSalida = horaSalida;
+        this.horaLlegada = horaLlegada;
+        this.estado = estado;
+        this.tipoVuelo = tipoVuelo;
+        this.cantAsientosDiponibles = cantAsientosDiponibles;
+        this.precioAsientos = precioAsientos;
+        this.montoImpuesto = montoImpuesto;
+        this.tiquetes = new ArrayList<Tiquete>();
+    }
+
+    /**
      * Getters y setters de los atributos del objeto
      */
     public int getNumeroVuelo() {

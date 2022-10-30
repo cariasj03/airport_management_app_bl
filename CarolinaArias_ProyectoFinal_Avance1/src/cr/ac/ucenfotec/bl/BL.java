@@ -62,16 +62,15 @@ public class BL {
      * Metodo para agregar un nuevo aeropuerto
      * @param nombre es de tipo String y corresponde al nombre del aeropuerto
      * @param codigo es de tipo String y corresponde al codigo del aeropuerto
-     * @param pais es de tipo Pais y corresponde al pais donde se encuentra el aeropuerto
      * @return mensaje es de tipo String y devuelve un mensaje que indica si se agrego con exito el aeropuerto o no
      */
-    public static String agregarAeropuerto (String nombre, String codigo, Pais pais)
+    public static String agregarAeropuerto (String nombre, String codigo)
     {
         String mensaje;
         if (existeAeropuerto(codigo)) {
             mensaje = "El aeropuerto no puede ser agregado debido a que ya existe en el sistema un aeropuerto registrado con ese código.";
         } else {
-            Aeropuerto aeropuerto = new Aeropuerto(nombre, codigo, pais);
+            Aeropuerto aeropuerto = new Aeropuerto(nombre, codigo);
             listaAeropuertos.add(aeropuerto);
             mensaje = "El aeropuerto fue agregado con éxito.";
         }
@@ -107,16 +106,15 @@ public class BL {
      * Metodo para modificar un aeropuerto existente en el sistema
      * @param nuevoNombre es de tipo String y corresponde al nuevo nombre del aeropuerto
      * @param codigo es de tipo String y corresponde al codigo del aeropuerto por modificar
-     * @param nuevoPais es de tipo Pais y corresponde al nuevo pais donde se encuentra el aeropuerto
      * @param nuevoCodigo es de tipo String y correspond al nuevo codigo del aeropuerto
      * @return mensaje es de tipo String y devuelve un mensaje que indica si se modifico con exito el aeropuerto o no
      */
-    public static String modificarAeropuerto (String nuevoNombre, String codigo, Pais nuevoPais, String nuevoCodigo)
+    public static String modificarAeropuerto (String nuevoNombre, String codigo, String nuevoCodigo)
     {
         String mensaje;
         if (existeAeropuerto(codigo)) {
             int i = 0;
-            Aeropuerto aeropuertoModificado = new Aeropuerto(nuevoNombre, nuevoCodigo, nuevoPais);
+            Aeropuerto aeropuertoModificado = new Aeropuerto(nuevoNombre, nuevoCodigo);
             for(Aeropuerto aeropuerto:listaAeropuertos) {
                 if (codigo.equals(aeropuerto.getCodigo())) {
                     i = listaAeropuertos.indexOf(aeropuerto);
@@ -163,23 +161,16 @@ public class BL {
      * @param tipoVuelo es de tipo String y corresponde al tipo de vuelo
      * @param cantAsientosDiponibles es de tipo int y corresponde a la cantidad de asientos disponibles en el vuelo
      * @param precioAsientos es de tipo double y corresponde al precio de los asientos del vuelo
-     * @param montoImpuesto es de tipo String y corresponde al monto del impuesto para los tiquetes del vuelo
-     * @param aeropuertoOrigen es de tipo Aeropuerto y corresponde al aeropuerto de origen del vuelo
-     * @param aeropuertoDestino es de tipo Aeropuerto y corresponde al aeropuerto de destino del vuelo
-     * @param aerolinea es de tipo Aerolinea y corresponde a la aerolinea que opera el vuelo
-     * @param tripulacion es de tipo Tripulacion y corresponde la tripulacion que atiende el vuelo
-     * @param aeronave es de tipo Aeronave y corresponde a la aeronave asignada al vuelo
-     * @param puertaLlegada es de tipo Puerta y corresponde a la puerta de llegada del vuelo
-     * @param puertaSalida es de tipo Puerta y corresponde a la puerta de salida del vuelo
+     * @param montoImpuesto es de tipo double y corresponde al monto del impuesto para los tiquetes del vuelo
      * @return mensaje es de tipo String y devuelve un mensaje que indica si se agrego con exito el vuelo o no
      */
-    public static String agregarVuelo (int numeroVuelo, LocalTime horaSalida, LocalTime horaLlegada, String estado, String tipoVuelo, int cantAsientosDiponibles, double precioAsientos, double montoImpuesto, Aeropuerto aeropuertoOrigen, Aeropuerto aeropuertoDestino, Aerolinea aerolinea, Tripulacion tripulacion, Aeronave aeronave, Puerta puertaLlegada, Puerta puertaSalida)
+    public static String agregarVuelo (int numeroVuelo, LocalTime horaSalida, LocalTime horaLlegada, String estado, String tipoVuelo, int cantAsientosDiponibles, double precioAsientos, double montoImpuesto)
     {
         String mensaje;
         if (existeVuelo(numeroVuelo)) {
             mensaje = "El vuelo no puede ser agregado debido a que ya existe en el sistema un vuelo registrado con ese número.";
         } else {
-            Vuelo vuelo = new Vuelo(numeroVuelo, horaSalida, horaLlegada, estado, tipoVuelo, cantAsientosDiponibles, precioAsientos, montoImpuesto, aeropuertoOrigen, aeropuertoDestino, aerolinea, tripulacion, aeronave, puertaLlegada, puertaSalida);
+            Vuelo vuelo = new Vuelo(numeroVuelo, horaSalida, horaLlegada, estado, tipoVuelo, cantAsientosDiponibles, precioAsientos, montoImpuesto);
             listaVuelos.add(vuelo);
             mensaje = "El vuelo fue agregado con éxito.";
         }
@@ -222,21 +213,14 @@ public class BL {
      * @param nuevaCantAsientosDiponibles es de tipo int y corresponde a la nueva cantidad de asientos disponibles en el vuelo
      * @param nuevoPrecioAsientos es de tipo double y corresponde al nuevo precio de los asientos del vuelo
      * @param nuevoMontoImpuesto es de tipo String y corresponde al nuevo monto del impuesto para los tiquetes del vuelo
-     * @param nuevoAeropuertoOrigen es de tipo Aeropuerto y corresponde al nuevo aeropuerto de origen del vuelo
-     * @param nuevoAeropuertoDestino es de tipo Aeropuerto y corresponde al nuevo aeropuerto de destino del vuelo
-     * @param nuevaAerolinea es de tipo Aerolinea y corresponde a la nueva aerolinea que opera el vuelo
-     * @param nuevaTripulacion es de tipo Tripulacion y corresponde la nueva tripulacion que atiende el vuelo
-     * @param nuevaAeronave es de tipo Aeronave y corresponde a la nueva aeronave asignada al vuelo
-     * @param nuevaPuertaLlegada es de tipo Puerta y corresponde a la nueva puerta de llegada del vuelo
-     * @param nuevaPuertaSalida es de tipo Puerta y corresponde a la nueva puerta de salida del vuelo
      * @return mensaje es de tipo String y devuelve un mensaje que indica si se modifico con exito el vuelo o no
      */
-    public static String modificarVuelo (int numeroVuelo, int nuevoNumeroVuelo, LocalTime nuevaHoraSalida, LocalTime nuevaHoraLlegada, String nuevoEstado, String nuevoTipoVuelo, int nuevaCantAsientosDiponibles, double nuevoPrecioAsientos, double nuevoMontoImpuesto, Aeropuerto nuevoAeropuertoOrigen, Aeropuerto nuevoAeropuertoDestino, Aerolinea nuevaAerolinea, Tripulacion nuevaTripulacion, Aeronave nuevaAeronave, Puerta nuevaPuertaLlegada, Puerta nuevaPuertaSalida)
+    public static String modificarVuelo (int numeroVuelo, int nuevoNumeroVuelo, LocalTime nuevaHoraSalida, LocalTime nuevaHoraLlegada, String nuevoEstado, String nuevoTipoVuelo, int nuevaCantAsientosDiponibles, double nuevoPrecioAsientos, double nuevoMontoImpuesto)
     {
         String mensaje;
         if (existeVuelo(numeroVuelo)) {
             int i = 0;
-        Vuelo vueloModificado = new Vuelo(numeroVuelo, nuevaHoraSalida, nuevaHoraLlegada, nuevoEstado, nuevoTipoVuelo, nuevaCantAsientosDiponibles, nuevaCantAsientosDiponibles, nuevoMontoImpuesto, nuevoAeropuertoOrigen, nuevoAeropuertoDestino, nuevaAerolinea, nuevaTripulacion, nuevaAeronave, nuevaPuertaLlegada, nuevaPuertaSalida);
+        Vuelo vueloModificado = new Vuelo(nuevoNumeroVuelo, nuevaHoraSalida, nuevaHoraLlegada, nuevoEstado, nuevoTipoVuelo, nuevaCantAsientosDiponibles, nuevaCantAsientosDiponibles, nuevoMontoImpuesto);
             for(Vuelo vuelo:listaVuelos) {
                 if (numeroVuelo == vuelo.getNumeroVuelo()) {
                     i = listaVuelos.indexOf(vuelo);

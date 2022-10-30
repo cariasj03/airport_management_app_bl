@@ -38,6 +38,16 @@ public class Tripulacion {
     }
 
     /**
+     * Este es el constructor con los atributos de tipo nativo
+     * @param codigo es de tipo String y corresponde al codigo de la tripulacion
+     * @param nombreClave es de tipo String y corresponde al nombre clave de la tripulacion
+     */
+    public Tripulacion(String codigo, String nombreClave) {
+        this.codigo = codigo;
+        this.nombreClave = nombreClave;
+    }
+
+    /**
      * Getters y setters de los atributos del objeto
      */
     public String getCodigo() {
