@@ -29,11 +29,12 @@ public class Tripulacion {
  * Este es el constructor con todos los atributos
  * @param codigo es de tipo String y corresponde al codigo de la tripulacion
  * @param nombreClave es de tipo String y corresponde al nombre clave de la tripulacion
+ * @param tripulantes es de tipo ArrayList<Tripulante> y corresponde a la lista de los tripulantes de la tripulacion
  */
-    public Tripulacion(String codigo, String nombreClave) {
+    public Tripulacion(String codigo, String nombreClave, ArrayList<Tripulante> tripulantes) {
         this.codigo = codigo;
         this.nombreClave = nombreClave;
-        this.tripulantes = new ArrayList<Tripulante>();
+        this.tripulantes = tripulantes;
     }
 
     /**

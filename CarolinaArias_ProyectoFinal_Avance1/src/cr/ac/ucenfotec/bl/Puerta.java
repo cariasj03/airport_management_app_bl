@@ -1,5 +1,7 @@
 package cr.ac.ucenfotec.bl;
 
+import java.util.ArrayList;
+
 /**
  * @author Carolina Arias
  * @version 1.0
@@ -27,12 +29,11 @@ public class Puerta {
      * Este es el constructor con todos los atributos
      * @param codigo es de tipo String y corresponde al codigo de la puerta
      * @param nombre es de tipo String y corresponde al nombre de la puerta
-     * @param ubicacion es de tipo Ubicacion y corresponde a la ubicacion de la puerta
      */
-    public Puerta(String codigo, String nombre, Ubicacion ubicacion) {
+    public Puerta(String codigo, String nombre) {
         this.codigo = codigo;
         this.nombre = nombre;
-        this.ubicacion = ubicacion;
+        this.ubicacion = new Ubicacion();
     }
 
     /**
