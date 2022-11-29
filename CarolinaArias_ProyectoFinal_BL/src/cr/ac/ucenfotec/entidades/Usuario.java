@@ -1,4 +1,4 @@
-package cr.ac.ucenfotec.bl;
+package cr.ac.ucenfotec.entidades;
 
 import java.time.LocalDate;
 
@@ -28,13 +28,11 @@ public class Usuario extends Persona{
      * @param edad es de tipo int y corresponde la edad del usuario
      * @param genero es de tipo String y corresponde al genero del usuario
      * @param correoElectronico es de tipo String y corresponde al correo electronico del usuario
-     * @param provincia es de tipo String y corresponde a la provincia de residencia del usuario
-     * @param canton es de tipo String y corresponde al canton de residencia del usuario
-     * @param distrito es de tipo String y corresponde al distrito de residencia del usuario
-     * @param detalleDireccion es de tipo String y corresponde al detalle de la direccion de la residencia del usuario
+     * @param direccion es de tipo Direccion y corresponde a la direccion del usuario
+     * @param contrasena es de tipo String y corresponde a la contrasena del usuario
      */
-    public Usuario(String id, String nombre, String apellidos, String nacionalidad, LocalDate fechaNacimiento, int edad, String genero, String correoElectronico, String provincia, String canton, String distrito, String detalleDireccion) {
-        super(id, nombre, apellidos, nacionalidad, fechaNacimiento, edad, genero, correoElectronico, provincia, canton, distrito, detalleDireccion);
+    public Usuario(String id, String nombre, String apellidos, String nacionalidad, LocalDate fechaNacimiento, int edad, String genero, String correoElectronico, Direccion direccion, String contrasena) {
+        super(id, nombre, apellidos, nacionalidad, fechaNacimiento, edad, genero, correoElectronico, direccion, contrasena);
     }
 
     /**

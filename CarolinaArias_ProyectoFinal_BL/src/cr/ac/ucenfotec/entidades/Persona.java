@@ -1,6 +1,7 @@
-package cr.ac.ucenfotec.bl;
+package cr.ac.ucenfotec.entidades;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 /**
  * @author Carolina Arias
@@ -21,10 +22,8 @@ public class Persona {
     private int edad;
     private String genero;
     private String correoElectronico;
-    private String provincia;
-    private String canton;
-    private String distrito;
-    private String detalleDireccion;
+    private Direccion direccion;
+    private String contrasena;
 
     //Seteo de los constructores
     /**
@@ -43,12 +42,10 @@ public class Persona {
      * @param edad es de tipo int y corresponde la edad de la persona
      * @param genero es de tipo String y corresponde al genero de la persona
      * @param correoElectronico es de tipo String y corresponde al correo electronico de la persona
-     * @param provincia es de tipo String y corresponde a la provincia de residencia de la persona
-     * @param canton es de tipo String y corresponde al canton de residencia de la persona
-     * @param distrito es de tipo String y corresponde al distrito de residencia de la persona
-     * @param detalleDireccion es de tipo String y corresponde al detalle de la direccion de la residencia de la persona
+     * @param direccion es de tipo Direccion y corresponde a la direccion de la persona
+     * @param contrasena es de tipo String y corresponde a la contrasena de la persona
      */
-    public Persona(String id, String nombre, String apellidos, String nacionalidad, LocalDate fechaNacimiento, int edad, String genero, String correoElectronico, String provincia, String canton, String distrito, String detalleDireccion) {
+    public Persona(String id, String nombre, String apellidos, String nacionalidad, LocalDate fechaNacimiento, int edad, String genero, String correoElectronico, Direccion direccion, String contrasena) {
         this.id = id;
         this.nombre = nombre;
         this.apellidos = apellidos;
@@ -57,10 +54,18 @@ public class Persona {
         this.edad = edad;
         this.genero = genero;
         this.correoElectronico = correoElectronico;
-        this.provincia = provincia;
-        this.canton = canton;
-        this.distrito = distrito;
-        this.detalleDireccion = detalleDireccion;
+        this.direccion = direccion;
+        this.contrasena = contrasena;
+    }
+
+    /**
+     * Este es el constructor con solo el id y la contrasena
+     * @param id es de tipo String y corresponde a la identificacion de la persona
+     * @param contrasena es de tipo String y corresponde a la contrasena de la persona
+     */
+    public Persona(String id, String contrasena) {
+        this.id = id;
+        this.contrasena = contrasena;
     }
 
     /**
@@ -130,36 +135,20 @@ public class Persona {
         this.correoElectronico = correoElectronico;
     }
 
-    public String getProvincia() {
-        return provincia;
+    public Direccion getDireccion() {
+        return direccion;
     }
 
-    public void setProvincia(String provincia) {
-        this.provincia = provincia;
+    public void setDireccion(Direccion direccion) {
+        this.direccion = direccion;
     }
 
-    public String getCanton() {
-        return canton;
+    public String getContrasena() {
+        return contrasena;
     }
 
-    public void setCanton(String canton) {
-        this.canton = canton;
-    }
-
-    public String getDistrito() {
-        return distrito;
-    }
-
-    public void setDistrito(String distrito) {
-        this.distrito = distrito;
-    }
-
-    public String getDetalleDireccion() {
-        return detalleDireccion;
-    }
-
-    public void setDetalleDireccion(String detalleDireccion) {
-        this.detalleDireccion = detalleDireccion;
+    public void setContrasena(String contrasena) {
+        this.contrasena = contrasena;
     }
 
     /**
@@ -177,10 +166,21 @@ public class Persona {
                 ", edad=" + edad +
                 ", genero='" + genero + '\'' +
                 ", correoElectronico='" + correoElectronico + '\'' +
-                ", provincia='" + provincia + '\'' +
-                ", canton='" + canton + '\'' +
-                ", distrito='" + distrito + '\'' +
-                ", detalleDireccion='" + detalleDireccion + '\'' +
+                ", direccion=" + direccion +
+                ", contrasena='" + contrasena + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Persona persona = (Persona) o;
+        return Objects.equals(id, persona.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

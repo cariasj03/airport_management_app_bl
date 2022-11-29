@@ -1,6 +1,6 @@
-package cr.ac.ucenfotec.bl;
+package cr.ac.ucenfotec.entidades;
 
-import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * @author Carolina Arias
@@ -74,5 +74,18 @@ public class Puerta {
                 ", nombre='" + nombre + '\'' +
                 ", ubicacion=" + ubicacion +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Puerta puerta = (Puerta) o;
+        return Objects.equals(codigo, puerta.codigo);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(codigo);
     }
 }

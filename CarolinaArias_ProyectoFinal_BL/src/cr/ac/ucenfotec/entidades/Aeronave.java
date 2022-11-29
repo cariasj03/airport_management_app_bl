@@ -1,4 +1,6 @@
-package cr.ac.ucenfotec.bl;
+package cr.ac.ucenfotec.entidades;
+
+import java.util.Objects;
 
 /**
  * @author Carolina Arias
@@ -85,5 +87,18 @@ public class Aeronave {
                 ", modelo='" + modelo + '\'' +
                 ", capacidad=" + capacidad +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Aeronave aeronave = (Aeronave) o;
+        return Objects.equals(placa, aeronave.placa);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(placa);
     }
 }

@@ -1,6 +1,5 @@
-package cr.ac.ucenfotec.bl;
+package cr.ac.ucenfotec.entidades;
 
-import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 

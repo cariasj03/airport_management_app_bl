@@ -1,4 +1,4 @@
-package cr.ac.ucenfotec.bl;
+package cr.ac.ucenfotec.entidades;
 
 import java.time.LocalDate;
 
@@ -36,18 +36,16 @@ public class Tripulante extends Persona{
      * @param edad es de tipo int y corresponde la edad del tripulante
      * @param genero es de tipo String y corresponde al genero del tripulante
      * @param correoElectronico es de tipo String y corresponde al correo electronico del tripulante
-     * @param provincia es de tipo String y corresponde a la provincia de residencia del tripulante
-     * @param canton es de tipo String y corresponde al canton de residencia del tripulante
-     * @param distrito es de tipo String y corresponde al distrito de residencia del tripulante
-     * @param detalleDireccion es de tipo String y corresponde al detalle de la direccion de la residencia del tripulante
+     * @param direccion es de tipo Direccion y corresponde a la direccion del tripulante
+     * @param contrasena es de tipo String y corresponde a la contrasena del tripulante
      * @param aniosExperiencia es de tipo int y corresponde a los anios de experiencia del tripulante
      * @param fechaGraduacion es de tipo LocalDate y corresponde a la fecha de graduacion del tripulante
      * @param numeroLicencia es de tipo String y corresponde al numero de licencia del tripulante
      * @param puesto es de tipo String y corresponde al puesto del tripulante
      * @param telefono es de tipo String y corresponde al telefono del tripulante
      */
-    public Tripulante(String id, String nombre, String apellidos, String nacionalidad, LocalDate fechaNacimiento, int edad, String genero, String correoElectronico, String provincia, String canton, String distrito, String detalleDireccion, int aniosExperiencia, LocalDate fechaGraduacion, String numeroLicencia, String puesto, String telefono) {
-        super(id, nombre, apellidos, nacionalidad, fechaNacimiento, edad, genero, correoElectronico, provincia, canton, distrito, detalleDireccion);
+    public Tripulante(String id, String nombre, String apellidos, String nacionalidad, LocalDate fechaNacimiento, int edad, String genero, String correoElectronico, Direccion direccion, String contrasena, int aniosExperiencia, LocalDate fechaGraduacion, String numeroLicencia, String puesto, String telefono) {
+        super(id, nombre, apellidos, nacionalidad, fechaNacimiento, edad, genero, correoElectronico, direccion, contrasena);
         this.aniosExperiencia = aniosExperiencia;
         this.fechaGraduacion = fechaGraduacion;
         this.numeroLicencia = numeroLicencia;
@@ -113,4 +111,5 @@ public class Tripulante extends Persona{
                 ", telefono='" + telefono + '\'' +
                 '}';
     }
+
 }

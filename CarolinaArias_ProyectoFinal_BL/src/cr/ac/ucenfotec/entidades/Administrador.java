@@ -1,4 +1,4 @@
-package cr.ac.ucenfotec.bl;
+package cr.ac.ucenfotec.entidades;
 
 import java.time.LocalDate;
 
@@ -28,13 +28,20 @@ public class Administrador extends Persona{
      * @param edad es de tipo int y corresponde la edad del administrador
      * @param genero es de tipo String y corresponde al genero del administrador
      * @param correoElectronico es de tipo String y corresponde al correo electronico del administrador
-     * @param provincia es de tipo String y corresponde a la provincia de residencia del administrador
-     * @param canton es de tipo String y corresponde al canton de residencia del administrador
-     * @param distrito es de tipo String y corresponde al distrito de residencia del administrador
-     * @param detalleDireccion es de tipo String y corresponde al detalle de la direccion de la residencia del administrador
+     * @param direccion es de tipo Direccion y corresponde a la direccion del administrador
+     * @param contrasena es de tipo String y corresponde a la contrasena del administrador
      */
-    public Administrador(String id, String nombre, String apellidos, String nacionalidad, LocalDate fechaNacimiento, int edad, String genero, String correoElectronico, String provincia, String canton, String distrito, String detalleDireccion) {
-        super(id, nombre, apellidos, nacionalidad, fechaNacimiento, edad, genero, correoElectronico, provincia, canton, distrito, detalleDireccion);
+    public Administrador(String id, String nombre, String apellidos, String nacionalidad, LocalDate fechaNacimiento, int edad, String genero, String correoElectronico, Direccion direccion, String contrasena) {
+        super(id, nombre, apellidos, nacionalidad, fechaNacimiento, edad, genero, correoElectronico, direccion, contrasena);
+    }
+
+    /**
+     * Este es el constructor con solo el id y la contrasena
+     * @param id es de tipo String y corresponde a la identificacion del administrador
+     * @param contrasena es de tipo String y corresponde a la contrasena del administrador
+     */
+    public Administrador(String id, String contrasena) {
+        super(id, contrasena);
     }
 
     /**

@@ -1,4 +1,6 @@
-package cr.ac.ucenfotec.bl;
+package cr.ac.ucenfotec.entidades;
+
+import java.util.Objects;
 
 /**
  * @author Carolina Arias
@@ -83,5 +85,18 @@ public class Aeropuerto {
                 ", codigo='" + codigo + '\'' +
                 ", pais=" + pais +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Aeropuerto that = (Aeropuerto) o;
+        return Objects.equals(codigo, that.codigo);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(codigo);
     }
 }

@@ -1,4 +1,6 @@
-package cr.ac.ucenfotec.bl;
+package cr.ac.ucenfotec.entidades;
+
+import java.util.Objects;
 
 /**
  * @author Carolina Arias
@@ -85,5 +87,18 @@ public class Aerolinea {
                 ", nombreEmpresaDuenna='" + nombreEmpresaDuenna + '\'' +
                 ", logo='" + logo + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Aerolinea aerolinea = (Aerolinea) o;
+        return Objects.equals(nombreComercial, aerolinea.nombreComercial);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(nombreComercial);
     }
 }
