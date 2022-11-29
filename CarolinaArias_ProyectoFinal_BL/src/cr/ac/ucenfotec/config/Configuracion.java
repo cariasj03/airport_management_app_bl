@@ -52,7 +52,7 @@ public class Configuracion {
     public void leerConfiguracion() {
         try {
             Properties properties = new Properties();
-            FileInputStream fileInputStream = new FileInputStream("C:\\Users\\caria\\OneDrive\\Documentos\\U\\CENFOTEC\\4. Progra Orientada a Objetos\\Repositorios\\Proyectos\\carolinaarias_proyectofinal_avance1\\CarolinaArias_ProyectoFinal_Avance1\\src\\cr\\ac\\ucenfotec\\config\\config.properties");
+            FileInputStream fileInputStream = new FileInputStream("C:\\Users\\caria\\OneDrive\\Documentos\\U\\CENFOTEC\\4. Progra Orientada a Objetos\\Repositorios\\Proyectos\\carolinaarias_proyectofinal_bl\\CarolinaArias_ProyectoFinal_BL\\src\\cr\\ac\\ucenfotec\\config\\config.properties");
             properties.load(fileInputStream);
             this.setClaseJDBC(properties.getProperty("claseJDBC"));
             this.setStringConexion(properties.getProperty("stringConexion"));
