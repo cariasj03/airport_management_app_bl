@@ -6,10 +6,14 @@ import java.util.ArrayList;
 public class Gestor {
     private AdministradorDAO administradorDAO;
     private AeropuertoDAO aeropuertoDAO;
+    private VueloDAO vueloDAO;
+    private UbicacionDAO ubicacionDAO;
 
     public Gestor() {
         administradorDAO = new AdministradorDAO();
         aeropuertoDAO = new AeropuertoDAO();
+        vueloDAO = new VueloDAO();
+        ubicacionDAO = new UbicacionDAO();
     }
 
     /**
@@ -114,7 +118,7 @@ public class Gestor {
     /**
      * Metodo para verificar si el aeropuerto ya se encuentra registrado en el sistema
      * @param tmpAeropuerto es de tipo Aeropuerto y corresponde al aeropuerto por verificar
-     * @return existeAdministrador es de tipo boolean y devuelve si el aeropuerto ya existe en el sistema
+     * @return existeAeropuerto es de tipo boolean y devuelve si el aeropuerto ya existe en el sistema
      */
     public boolean existeAeropuerto (Aeropuerto tmpAeropuerto) {
         boolean existeAeropuerto = false;
@@ -161,6 +165,156 @@ public class Gestor {
         } else {
             aeropuertoDAO.eliminarAeropuerto(tmpAeropuerto);
             mensaje = "El aeropuerto fue eliminado con éxito.";
+        }
+        return mensaje;
+    }
+
+    /**
+     * Metodo para crear un vuelo
+     * @param tmpVuelo es de tipo Vuelo y corresponde al vuelo por insertar
+     * @return mensaje es de tipo String y devuelve un mensaje que indica si se insertó con exito el vuelo o no
+     */
+    public String insertarVuelo (Vuelo tmpVuelo)
+    {
+        String mensaje;
+        if (existeVuelo(tmpVuelo)) {
+            mensaje = "El vuelo no puede ser registrado debido a que ya existe en el sistema un vuelo registrado con ese número.";
+        } else {
+            vueloDAO.insertarVuelo(tmpVuelo);
+            mensaje = "El vuelo fue registrado con éxito.";
+        }
+        return mensaje;
+    }
+
+    /**
+     * Metodo para verificar si el vuelo ya se encuentra registrado en el sistema
+     * @param tmpVuelo es de tipo Vuelo y corresponde al vuelo por verificar
+     * @return existeVuelo es de tipo boolean y devuelve si el vuelo ya existe en el sistema
+     */
+    public boolean existeVuelo (Vuelo tmpVuelo) {
+        boolean existeVuelo = false;
+
+        for(Vuelo vuelo:vueloDAO.listarVuelos()) {
+            if (vuelo.equals(tmpVuelo)) {
+                existeVuelo = true;
+                break;
+            }
+        }
+        return existeVuelo;
+    }
+
+    /**
+     * Metodo para listar los vuelos
+     */
+    public ArrayList<Vuelo> listarVuelos() {
+        return vueloDAO.listarVuelos();
+    }
+
+    /**
+     * Metodo para actualizar un vuelo
+     * @param tmpVuelo es de tipo Vuelo y corresponde al vuelo por actualizar
+     * @return mensaje es de tipo String y devuelve un mensaje que indica si se actualizo con exito el vuelo o no
+     */
+    public String actualizarVuelo (Vuelo tmpVuelo)
+    {
+        String mensaje;
+        if (!existeVuelo(tmpVuelo)) {
+            mensaje = "El vuelo no puede ser actualizado debido a que no existe en el sistema un vuelo registrado con ese número.";
+        } else {
+            vueloDAO.actualizarVuelo(tmpVuelo);
+            mensaje = "El vuelo fue actualizado con éxito.";
+        }
+        return mensaje;
+    }
+
+    /**
+     * Metodo para eliminar un vuelo
+     * @param tmpVuelo es de tipo Vuelo y corresponde al vuelo por eliminar
+     * @return mensaje es de tipo String y devuelve un mensaje que indica si se elimino con exito el vuelo o no
+     */
+    public String eliminarVuelo (Vuelo tmpVuelo)
+    {
+        String mensaje;
+        if (!existeVuelo(tmpVuelo)) {
+            mensaje = "El vuelo no puede ser eliminado debido a que no existe en el sistema un vuelo registrado con ese número.";
+        } else {
+            vueloDAO.eliminarVuelo(tmpVuelo);
+            mensaje = "El vuelo fue eliminado con éxito.";
+        }
+        return mensaje;
+    }
+
+    /**
+     * Metodo para crear una ubicacion
+     * @param tmpUbicacion es de tipo Ubicacion y corresponde a la ubicacion por insertar
+     * @return mensaje es de tipo String y devuelve un mensaje que indica si se inserto con exito la ubicacion o no
+     */
+    public String insertarUbicacion (Ubicacion tmpUbicacion)
+    {
+        String mensaje;
+        if (existeUbicacion(tmpUbicacion)) {
+            mensaje = "La ubicación no puede ser registrada debido a que ya existe en el sistema una ubicación registrada con ese código.";
+        } else {
+            ubicacionDAO.insertarUbicacion(tmpUbicacion);
+            mensaje = "La ubicación fue registrada con éxito.";
+        }
+        return mensaje;
+    }
+
+    /**
+     * Metodo para verificar si la ubicacion ya se encuentra registrada en el sistema
+     * @param tmpUbicacion es de tipo Ubicacion y corresponde a la ubicacion por verificar
+     * @return existeUbicacion es de tipo boolean y devuelve si la ubicacion ya existe en el sistema
+     */
+    public boolean existeUbicacion (Ubicacion  tmpUbicacion) {
+        boolean existeUbicacion = false;
+
+        for(Ubicacion  ubicacion:ubicacionDAO.listarUbicaciones()) {
+            if (ubicacion.equals(tmpUbicacion)) {
+                existeUbicacion = true;
+                break;
+            }
+        }
+        return existeUbicacion;
+    }
+
+    /**
+     * Metodo para listar las ubicaciones
+     */
+    public ArrayList<Ubicacion> listarUbicaciones() {
+        return ubicacionDAO.listarUbicaciones();
+    }
+
+    /**
+     * Metodo para actualizar una ubicacion
+     * @param tmpUbicacion es de tipo Ubicacion y corresponde a la ubicacion por actualizar
+     * @return mensaje es de tipo String y devuelve un mensaje que indica si se actualizo con exito la ubicacion o no
+     */
+    public String actualizarUbicacion (Ubicacion tmpUbicacion)
+    {
+        String mensaje;
+        if (!existeUbicacion(tmpUbicacion)) {
+            mensaje = "La ubicación no puede ser actualizada debido a que no existe en el sistema una ubicación registrada con ese código.";
+        } else {
+            ubicacionDAO.actualizarUbicacion(tmpUbicacion);
+            mensaje = "La ubicación fue actualizada con éxito.";
+        }
+        return mensaje;
+    }
+
+    /**
+     * Metodo para eliminar una ubicacion
+     * @param tmpUbicacion es de tipo Ubicacion y corresponde a la ubicacion por eliminar
+     * @return mensaje es de tipo String y devuelve un mensaje que indica si se elimino con exito la ubicacion o no
+     */
+    public String eliminarUbicacion (Ubicacion tmpUbicacion)
+    {
+        String mensaje;
+        if (!existeUbicacion(tmpUbicacion)) {
+            mensaje = "La ubicación no puede ser eliminada debido a que no existe en el sistema una ubicación registrada con ese código.";
+        } else {
+            ubicacionDAO.eliminarUbicacion(tmpUbicacion);
+            mensaje = "La ubicación fue eliminada con éxito.";
         }
         return mensaje;
     }

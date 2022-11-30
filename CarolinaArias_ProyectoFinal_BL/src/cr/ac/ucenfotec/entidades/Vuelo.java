@@ -2,6 +2,7 @@ package cr.ac.ucenfotec.entidades;
 
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * @author Carolina Arias
@@ -100,6 +101,31 @@ public class Vuelo {
     }
 
     /**
+     * Este es un constructor con los atributos de tipo nativo + aeropuertos
+     * @param numeroVuelo es de tipo int y corresponde al numero del vuelo
+     * @param horaSalida es de tipo LocalTime y corresponde a la hora de salida del vuelo
+     * @param horaLlegada es de tipo LocalTime y corresponde a la hora de llegada del vuelo
+     * @param estado es de tipo String y corresponde al estado del vuelo
+     * @param tipoVuelo es de tipo String y corresponde al tipo de vuelo
+     * @param cantAsientosDiponibles es de tipo int y corresponde a la cantidad de asientos disponibles en el vuelo
+     * @param precioAsientos es de tipo double y corresponde al precio de los asientos del vuelo
+     * @param montoImpuesto es de tipo double y corresponde al monto del impuesto para los tiquetes del vuelo
+     */
+    public Vuelo(int numeroVuelo, LocalTime horaSalida, LocalTime horaLlegada, String estado, String tipoVuelo, int cantAsientosDiponibles, double precioAsientos, double montoImpuesto, Aeropuerto aeropuertoOrigen, Aeropuerto aeropuertoDestino) {
+        this.numeroVuelo = numeroVuelo;
+        this.horaSalida = horaSalida;
+        this.horaLlegada = horaLlegada;
+        this.estado = estado;
+        this.tipoVuelo = tipoVuelo;
+        this.cantAsientosDiponibles = cantAsientosDiponibles;
+        this.precioAsientos = precioAsientos;
+        this.montoImpuesto = montoImpuesto;
+        this.aeropuertoOrigen = aeropuertoOrigen;
+        this.aeropuertoDestino = aeropuertoDestino;
+        this.tiquetes = new ArrayList<Tiquete>();
+    }
+
+    /**
      * Getters y setters de los atributos del objeto
      */
     public int getNumeroVuelo() {
@@ -150,7 +176,7 @@ public class Vuelo {
         this.cantAsientosDiponibles = cantAsientosDiponibles;
     }
 
-    public double getPrecioAsientos() {
+    public Double getPrecioAsientos() {
         return precioAsientos;
     }
 
@@ -158,7 +184,7 @@ public class Vuelo {
         this.precioAsientos = precioAsientos;
     }
 
-    public double getMontoImpuesto() {
+    public Double getMontoImpuesto() {
         return montoImpuesto;
     }
 
@@ -254,5 +280,18 @@ public class Vuelo {
                 ", puertaSalida=" + puertaSalida +
                 ", tiquetes=" + tiquetes +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Vuelo vuelo = (Vuelo) o;
+        return numeroVuelo == vuelo.numeroVuelo;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(numeroVuelo);
     }
 }

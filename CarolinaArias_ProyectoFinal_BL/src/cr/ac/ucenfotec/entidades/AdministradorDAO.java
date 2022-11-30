@@ -1,7 +1,6 @@
 package cr.ac.ucenfotec.entidades;
 
 import cr.ac.ucenfotec.config.Configuracion;
-
 import java.sql.*;
 import java.util.ArrayList;
 

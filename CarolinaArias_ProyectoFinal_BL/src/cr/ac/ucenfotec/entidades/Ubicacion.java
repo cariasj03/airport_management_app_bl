@@ -18,6 +18,7 @@ public class Ubicacion {
     private int nivel;
 
     //Seteo de los constructores
+
     /**
      * Este es el constructor por defecto
      */
@@ -26,8 +27,9 @@ public class Ubicacion {
 
     /**
      * Este es el constructor con todos los atributos
+     *
      * @param codigo es de tipo String y corresponde al codigo de la ubicacion
-     * @param nivel es de tipo String y corresponde al nivel de la ubicacion
+     * @param nivel  es de tipo String y corresponde al nivel de la ubicacion
      */
     public Ubicacion(String codigo, int nivel) {
         this.codigo = codigo;
@@ -55,6 +57,7 @@ public class Ubicacion {
 
     /**
      * Metodo que devuelve los atributos en formato String
+     *
      * @return devuelve todos los atributos del objeto en formato String
      */
     @Override

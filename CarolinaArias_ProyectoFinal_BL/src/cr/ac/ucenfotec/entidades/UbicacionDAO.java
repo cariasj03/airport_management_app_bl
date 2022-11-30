@@ -4,12 +4,21 @@ import cr.ac.ucenfotec.config.Configuracion;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class AeropuertoDAO {
+/**
+ * @author Carolina Arias
+ * @version 1.0
+ * @since 24/11/2022
+ *
+ * Esta clase se encarga de gestionar el acceso a datos de los objetos Ubicacion
+ */
+
+public class UbicacionDAO {
+
     /**
-     * Metodo para insertar un aeropuerto
-     * @param aeropuerto es de tipo Aeropuerto y corresponde al aeropuerto por insertar
+     * Metodo para insertar una ubicacion
+     * @param ubicacion es de tipo Ubicacion y corresponde a la ubicacion por insertar
      */
-    public void insertarAeropuerto(Aeropuerto aeropuerto) {
+    public void insertarUbicacion(Ubicacion ubicacion) {
         try {
             //Se crea una nueva instancia del archivo de configuración
             Configuracion configuracion= new Configuracion();
@@ -18,28 +27,29 @@ public class AeropuertoDAO {
             Connection conn = null;
             PreparedStatement stmt = null;
             String strConexion = configuracion.getStringConexion();
-            String query1 = "INSERT INTO AEROPUERTO (NOMBRE,CODIGO) VALUES(?,?)";
+            String query = "INSERT INTO UBICACION (CODIGO_UBICACION,NIVEL) VALUES(?,?)";
             conn = DriverManager.getConnection(strConexion);
-            stmt = conn.prepareStatement(query1);
-            stmt.setString(1,aeropuerto.getNombre());
-            stmt.setString(2,aeropuerto.getCodigo());
+            stmt = conn.prepareStatement(query);
+            stmt.setString(1,ubicacion.getCodigo());
+            stmt.setInt(2,ubicacion.getNivel());
             stmt.execute();
+
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
     }
 
     /**
-     * Metodo para listar los aeropuertos
+     * Metodo para listar las ubicaciones
      */
-    public ArrayList<Aeropuerto> listarAeropuertos()
+    public ArrayList<Ubicacion> listarUbicaciones()
     {
-        ArrayList<Aeropuerto> aeropuertos = new ArrayList<Aeropuerto>();
+        ArrayList<Ubicacion> ubicaciones = new ArrayList<Ubicacion>();
         try {
             Configuracion configuracion= new Configuracion();
             Class.forName(configuracion.getClaseJDBC());
             Connection conn = null;
-            String query = "SELECT * FROM AEROPUERTO";
+            String query = "SELECT * FROM UBICACION";
             Statement stmt = null;
             ResultSet rs = null;
             String strConexion = configuracion.getStringConexion();
@@ -48,64 +58,62 @@ public class AeropuertoDAO {
             rs = stmt.executeQuery(query);
 
             while (rs.next()) {
-                Aeropuerto aeropuerto    = new Aeropuerto();
-                Direccion direccion = new Direccion();
-                aeropuerto.setNombre(rs.getString("NOMBRE"));
-                aeropuerto.setCodigo(rs.getString("CODIGO"));
-                aeropuertos.add(aeropuerto);
+                Ubicacion ubicacion = new Ubicacion();
+                ubicacion.setCodigo(rs.getString("CODIGO_UBICACION"));
+                ubicacion.setNivel(rs.getInt("NIVEL"));
+                ubicaciones.add(ubicacion);
             }
             conn.close();
         } catch (Exception e){
             e.printStackTrace();
         }
-        return aeropuertos;
+        return ubicaciones;
     }
 
     /**
-     * Metodo para actualizar un aeropuerto
-     * @param aeropuerto es de tipo Aeropuerto y corresponde al aeropuerto por actualizar
+     * Metodo para actualizar una ubicacion
+     * @param ubicacion es de tipo Ubicacion y corresponde a la ubicacion por actualizar
      */
-    public void actualizarAeropuerto(Aeropuerto aeropuerto)
-    {
-        try{
+    public void actualizarUbicacion(Ubicacion ubicacion) {
+        try {
+            //Se crea una nueva instancia del archivo de configuración
             Configuracion configuracion= new Configuracion();
+            //Lo lee del archivo de configuracion
             Class.forName(configuracion.getClaseJDBC());
             Connection conn = null;
             PreparedStatement stmt = null;
-            ResultSet rs = null;
             String strConexion = configuracion.getStringConexion();
-            String query = "UPDATE AEROPUERTO SET NOMBRE=? WHERE CODIGO=?";
+            String query = "UPDATE UBICACION SET NIVEL=? WHERE CODIGO_UBICACION=?";
             conn = DriverManager.getConnection(strConexion);
             stmt = conn.prepareStatement(query);
-            stmt.setString(1,aeropuerto.getNombre());
-            stmt.setString(2,aeropuerto.getCodigo());
+            stmt.setInt(1, ubicacion.getNivel());
+            stmt.setString(2, ubicacion.getCodigo());
             stmt.execute();
-        } catch (Exception e){
+        } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
     }
 
     /**
-     * Metodo para eliminar un aeropuerto
-     * @param aeropuerto es de tipo Aeropuerto y corresponde al aeropuerto por eliminar
+     * Metodo para eliminar una ubicacion
+     * @param ubicacion es de tipo Ubicacion y corresponde a la ubicacion por eliminar
      */
-    public void eliminarAeropuerto(Aeropuerto aeropuerto)
-    {
-        try{
+    public void eliminarUbicacion(Ubicacion ubicacion) {
+        try {
+            //Se crea una nueva instancia del archivo de configuración
             Configuracion configuracion= new Configuracion();
+            //Lo lee del archivo de configuracion
             Class.forName(configuracion.getClaseJDBC());
             Connection conn = null;
             PreparedStatement stmt = null;
-            ResultSet rs = null;
             String strConexion = configuracion.getStringConexion();
-            String query = "DELETE FROM AEROPUERTO WHERE CODIGO = ?";
             conn = DriverManager.getConnection(strConexion);
+            String query = "DELETE FROM UBICACION WHERE CODIGO_UBICACION=?";
             stmt = conn.prepareStatement(query);
-            stmt.setString(1,aeropuerto.getCodigo());
+            stmt.setString(1,ubicacion.getCodigo());
             stmt.execute();
-        } catch (Exception e){
+        } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
-
         }
     }
 }
