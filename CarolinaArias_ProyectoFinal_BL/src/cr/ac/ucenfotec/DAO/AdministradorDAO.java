@@ -1,6 +1,9 @@
-package cr.ac.ucenfotec.entidades;
+package cr.ac.ucenfotec.DAO;
 
 import cr.ac.ucenfotec.config.Configuracion;
+import cr.ac.ucenfotec.entidades.Administrador;
+import cr.ac.ucenfotec.entidades.Direccion;
+
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -26,8 +29,9 @@ public class AdministradorDAO {
             Connection conn = null;
             PreparedStatement stmt1 = null;
             PreparedStatement stmt2 = null;
+            PreparedStatement stmt3 = null;
             String strConexion = configuracion.getStringConexion();
-            String query1 = "INSERT INTO ADMINISTRADOR (ID,NOMBRE,APELLIDOS,NACIONALIDAD,FECHA_NACIMIENTO,EDAD,GENERO,CORREO_ELECTRONICO, CONTRASENA) VALUES(?,?,?,?,?,?,?,?,?)";
+            String query1 = "INSERT INTO PERSONA (ID,NOMBRE,APELLIDOS,NACIONALIDAD,FECHA_NACIMIENTO,EDAD,GENERO,CORREO_ELECTRONICO, CONTRASENA) VALUES(?,?,?,?,?,?,?,?,?)";
             conn = DriverManager.getConnection(strConexion);
             stmt1 = conn.prepareStatement(query1);
             stmt1.setString(1,administrador.getId());
@@ -41,7 +45,7 @@ public class AdministradorDAO {
             stmt1.setString(9,administrador.getContrasena());
             stmt1.execute();
 
-            String query2 = "INSERT INTO DIRECCION (PROVINCIA, CANTON, DISTRITO, DETALLE, ID_ADMINISTRADOR) VALUES(?,?,?,?,?)";
+            String query2 = "INSERT INTO DIRECCION (PROVINCIA, CANTON, DISTRITO, DETALLE, ID_PERSONA) VALUES(?,?,?,?,?)";
             stmt2 = conn.prepareStatement(query2);
             stmt2.setString(1,administrador.getDireccion().getProvincia());
             stmt2.setString(2,administrador.getDireccion().getCanton());
@@ -49,6 +53,11 @@ public class AdministradorDAO {
             stmt2.setString(4,administrador.getDireccion().getDetalleDireccion());
             stmt2.setString(5,administrador.getId());
             stmt2.execute();
+
+            String query3 = "INSERT INTO ADMINISTRADOR (ID_PERSONA) VALUES(?)";
+            stmt3 = conn.prepareStatement(query3);
+            stmt3.setString(1,administrador.getId());
+            stmt3.execute();
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
@@ -64,7 +73,7 @@ public class AdministradorDAO {
             Configuracion configuracion= new Configuracion();
             Class.forName(configuracion.getClaseJDBC());
             Connection conn = null;
-            String query = "SELECT * FROM ADMINISTRADOR INNER JOIN DIRECCION ON ADMINISTRADOR.ID = DIRECCION.ID_ADMINISTRADOR";
+            String query = "SELECT * FROM PERSONA INNER JOIN ADMINISTRADOR ON PERSONA.ID = ADMINISTRADOR.ID_PERSONA INNER JOIN DIRECCION ON ADMINISTRADOR.ID_PERSONA = DIRECCION.ID_PERSONA";
             Statement stmt = null;
             ResultSet rs = null;
             String strConexion = configuracion.getStringConexion();
@@ -131,7 +140,7 @@ public class AdministradorDAO {
             PreparedStatement stmt1 = null;
             PreparedStatement stmt2 = null;
             String strConexion = configuracion.getStringConexion();
-            String query1 = "UPDATE ADMINISTRADOR SET NOMBRE=?,APELLIDOS=?,NACIONALIDAD=?,FECHA_NACIMIENTO=?,EDAD=?,GENERO=?,CORREO_ELECTRONICO=?, CONTRASENA=? WHERE ID=?";
+            String query1 = "UPDATE PERSONA SET NOMBRE=?,APELLIDOS=?,NACIONALIDAD=?,FECHA_NACIMIENTO=?,EDAD=?,GENERO=?,CORREO_ELECTRONICO=?, CONTRASENA=? WHERE ID=?";
             conn = DriverManager.getConnection(strConexion);
             stmt1 = conn.prepareStatement(query1);
             stmt1.setString(1,administrador.getNombre());
@@ -145,7 +154,7 @@ public class AdministradorDAO {
             stmt1.setString(9,administrador.getId());
             stmt1.execute();
 
-            String query2 = "UPDATE DIRECCION SET PROVINCIA=?,CANTON=?,DISTRITO=?,DETALLE=? WHERE ID_ADMINISTRADOR=?";
+            String query2 = "UPDATE DIRECCION SET PROVINCIA=?,CANTON=?,DISTRITO=?,DETALLE=? WHERE ID_PERSONA=?";
             stmt2 = conn.prepareStatement(query2);
             stmt2.setString(1,administrador.getDireccion().getProvincia());
             stmt2.setString(2,administrador.getDireccion().getCanton());
@@ -171,18 +180,24 @@ public class AdministradorDAO {
             Connection conn = null;
             PreparedStatement stmt1 = null;
             PreparedStatement stmt2 = null;
+            PreparedStatement stmt3 = null;
             String strConexion = configuracion.getStringConexion();
             conn = DriverManager.getConnection(strConexion);
 
-            String query1 = "DELETE FROM DIRECCION WHERE ID_ADMINISTRADOR=?";
+            String query1 = "DELETE FROM DIRECCION WHERE ID_PERSONA=?";
             stmt1 = conn.prepareStatement(query1);
             stmt1.setString(1,administrador.getId());
             stmt1.execute();
 
-            String query2 = "DELETE FROM ADMINISTRADOR WHERE ID=?";
+            String query2 = "DELETE FROM ADMINISTRADOR WHERE ID_PERSONA=?";
             stmt2 = conn.prepareStatement(query2);
             stmt2.setString(1,administrador.getId());
             stmt2.execute();
+
+            String query3 = "DELETE FROM PERSONA WHERE ID=?";
+            stmt3 = conn.prepareStatement(query3);
+            stmt3.setString(1,administrador.getId());
+            stmt3.execute();
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }

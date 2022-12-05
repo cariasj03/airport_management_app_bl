@@ -1,6 +1,9 @@
-package cr.ac.ucenfotec.entidades;
+package cr.ac.ucenfotec.DAO;
 
 import cr.ac.ucenfotec.config.Configuracion;
+import cr.ac.ucenfotec.entidades.Aeropuerto;
+import cr.ac.ucenfotec.entidades.Vuelo;
+
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -57,7 +60,7 @@ public class VueloDAO {
             Configuracion configuracion= new Configuracion();
             Class.forName(configuracion.getClaseJDBC());
             Connection conn = null;
-            String query = "SELECT * FROM VUELO";
+            String query = "SELECT NUMERO_VUELO, HORA_SALIDA, HORA_LLEGADA, ESTADO, TIPO_VUELO, CANT_ASIENTOS_DISPONIBLES, PRECIO_ASIENTOS, MONTO_IMPUESTO, CODIGO_AEROPUERTO_SALIDA, A_SALIDA.NOMBRE AS 'NOMBRE_A_SALIDA', CODIGO_AEROPUERTO_LLEGADA, A_LLEGADA.NOMBRE AS 'NOMBRE_A_LLEGADA' FROM VUELO INNER JOIN AEROPUERTO AS A_SALIDA ON VUELO.CODIGO_AEROPUERTO_SALIDA = A_SALIDA.CODIGO_AEROPUERTO INNER JOIN AEROPUERTO AS A_LLEGADA ON VUELO.CODIGO_AEROPUERTO_LLEGADA = A_LLEGADA.CODIGO_AEROPUERTO";
 
             Statement stmt = null;
             ResultSet rs = null;
@@ -68,6 +71,8 @@ public class VueloDAO {
 
             while (rs.next()) {
                 Vuelo vuelo = new Vuelo();
+                Aeropuerto aeropuertoOrigen = new Aeropuerto();
+                Aeropuerto aeropuertoDestino = new Aeropuerto();
                 vuelo.setNumeroVuelo(rs.getInt("NUMERO_VUELO"));
                 vuelo.setHoraSalida(rs.getTime("HORA_SALIDA").toLocalTime());
                 vuelo.setHoraLlegada(rs.getTime("HORA_LLEGADA").toLocalTime());
@@ -76,6 +81,12 @@ public class VueloDAO {
                 vuelo.setCantAsientosDiponibles(rs.getInt("CANT_ASIENTOS_DISPONIBLES"));
                 vuelo.setPrecioAsientos(rs.getDouble("PRECIO_ASIENTOS"));
                 vuelo.setMontoImpuesto(rs.getDouble("MONTO_IMPUESTO"));
+                aeropuertoOrigen.setCodigo(rs.getString("CODIGO_AEROPUERTO_SALIDA"));
+                aeropuertoOrigen.setNombre(rs.getString("NOMBRE_A_SALIDA"));
+                aeropuertoDestino.setCodigo(rs.getString("CODIGO_AEROPUERTO_LLEGADA"));
+                aeropuertoDestino.setNombre(rs.getString("NOMBRE_A_LLEGADA"));
+                vuelo.setAeropuertoOrigen(aeropuertoOrigen);
+                vuelo.setAeropuertoDestino(aeropuertoDestino);
                 vuelos.add(vuelo);
             }
             conn.close();

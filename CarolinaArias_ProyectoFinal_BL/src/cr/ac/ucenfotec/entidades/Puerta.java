@@ -29,6 +29,18 @@ public class Puerta {
      * Este es el constructor con todos los atributos
      * @param codigo es de tipo String y corresponde al codigo de la puerta
      * @param nombre es de tipo String y corresponde al nombre de la puerta
+     * @param ubicacion es de tipo Ubicacion y corresponde a la ubicacion de la puerta
+     */
+    public Puerta(String codigo, String nombre, Ubicacion ubicacion) {
+        this.codigo = codigo;
+        this.nombre = nombre;
+        this.ubicacion = ubicacion;
+    }
+
+    /**
+     * Este es el constructor con todos los atributos de tipo nativo
+     * @param codigo es de tipo String y corresponde al codigo de la puerta
+     * @param nombre es de tipo String y corresponde al nombre de la puerta
      */
     public Puerta(String codigo, String nombre) {
         this.codigo = codigo;

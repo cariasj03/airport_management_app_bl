@@ -1,0 +1,11 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="carolinaarias_proyectofinal_bl:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/carolinaarias_proyectofinal_bl_jar</output-path>
+    <root id="archive" name="carolinaarias_proyectofinal_bl.jar">
+      <element id="module-output" name="carolinaarias_proyectofinal_bl" />
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/META-INF/MANIFEST.MF" />
+      </element>
+    </root>
+  </artifact>
+</component>
