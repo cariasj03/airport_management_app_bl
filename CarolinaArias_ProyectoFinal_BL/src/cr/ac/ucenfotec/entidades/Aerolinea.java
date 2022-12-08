@@ -1,5 +1,6 @@
 package cr.ac.ucenfotec.entidades;
 
+import java.io.InputStream;
 import java.util.Objects;
 
 /**
@@ -15,9 +16,9 @@ public class Aerolinea {
      * Declaracion de atributos del objeto
      */
     private String nombreComercial;
-    private int cedulaJuridica;
+    private String cedulaJuridica;
     private String nombreEmpresaDuenna;
-    private String logo;
+    private InputStream logo;
 
     //Seteo de los constructores
     /**
@@ -29,14 +30,34 @@ public class Aerolinea {
     /**
      * Este es el constructor con todos los atributos
      * @param nombreComercial es de tipo String y corresponde al nombre comercial de la aerolinea
-     * @param cedulaJuridica es de tipo int y corresponde a la cedula juridica de la aerolinea
+     * @param cedulaJuridica es de tipo String y corresponde a la cedula juridica de la aerolinea
      * @param nombreEmpresaDuenna es de tipo String y corresponde al nombre de la empresa duenna de la aerolinea
-     * @param logo es te tipo String y corresponde al logo de la aerolinea
+     * @param logo es de tipo InputStream y corresponde al logo de la aerolinea
      */
-    public Aerolinea(String nombreComercial, int cedulaJuridica, String nombreEmpresaDuenna, String logo) {
+    public Aerolinea(String nombreComercial, String cedulaJuridica, String nombreEmpresaDuenna, InputStream logo) {
         this.nombreComercial = nombreComercial;
         this.cedulaJuridica = cedulaJuridica;
         this.nombreEmpresaDuenna = nombreEmpresaDuenna;
+        this.logo = logo;
+    }
+
+    /**
+     * Este es el constructor con todos los atributos menos el logo
+     * @param nombreComercial es de tipo String y corresponde al nombre comercial de la aerolinea
+     * @param cedulaJuridica es de tipo String y corresponde a la cedula juridica de la aerolinea
+     * @param nombreEmpresaDuenna es de tipo String y corresponde al nombre de la empresa duenna de la aerolinea
+     */
+    public Aerolinea(String nombreComercial, String cedulaJuridica, String nombreEmpresaDuenna) {
+        this.nombreComercial = nombreComercial;
+        this.cedulaJuridica = cedulaJuridica;
+        this.nombreEmpresaDuenna = nombreEmpresaDuenna;
+    }
+
+    /**
+     * Este es el constructor solamente con el logo
+     * @param logo es de tipo InputStream y corresponde al logo de la aerolinea
+     */
+    public Aerolinea(InputStream logo) {
         this.logo = logo;
     }
 
@@ -51,11 +72,11 @@ public class Aerolinea {
         this.nombreComercial = nombreComercial;
     }
 
-    public int getCedulaJuridica() {
+    public String getCedulaJuridica() {
         return cedulaJuridica;
     }
 
-    public void setCedulaJuridica(int cedulaJuridica) {
+    public void setCedulaJuridica(String cedulaJuridica) {
         this.cedulaJuridica = cedulaJuridica;
     }
 
@@ -67,11 +88,11 @@ public class Aerolinea {
         this.nombreEmpresaDuenna = nombreEmpresaDuenna;
     }
 
-    public String getLogo() {
+    public InputStream getLogo() {
         return logo;
     }
 
-    public void setLogo(String logo) {
+    public void setLogo(InputStream logo) {
         this.logo = logo;
     }
 
@@ -94,11 +115,11 @@ public class Aerolinea {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Aerolinea aerolinea = (Aerolinea) o;
-        return Objects.equals(nombreComercial, aerolinea.nombreComercial);
+        return Objects.equals(cedulaJuridica, aerolinea.cedulaJuridica);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(nombreComercial);
+        return Objects.hash(cedulaJuridica);
     }
 }

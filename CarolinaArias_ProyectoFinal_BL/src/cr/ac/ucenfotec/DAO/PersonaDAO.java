@@ -1,12 +1,11 @@
 package cr.ac.ucenfotec.DAO;
 
 import cr.ac.ucenfotec.config.Configuracion;
+import cr.ac.ucenfotec.entidades.Direccion;
 import cr.ac.ucenfotec.entidades.Persona;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+
+import java.sql.*;
 import java.util.ArrayList;
 
 /**
@@ -29,7 +28,7 @@ public class PersonaDAO {
             Configuracion configuracion= new Configuracion();
             Class.forName(configuracion.getClaseJDBC());
             Connection conn = null;
-            String query = "SELECT * FROM PERSONA";
+            String query = "SELECT * FROM PERSONA INNER JOIN DIRECCION ON PERSONA.ID = DIRECCION.ID_PERSONA";
             Statement stmt = null;
             ResultSet rs = null;
             String strConexion = configuracion.getStringConexion();
@@ -39,7 +38,21 @@ public class PersonaDAO {
 
             while (rs.next()) {
                 Persona persona = new Persona();
+                Direccion direccion = new Direccion();
                 persona.setId(rs.getString("ID"));
+                persona.setNombre(rs.getString("NOMBRE"));
+                persona.setApellidos(rs.getString("APELLIDOS"));
+                persona.setNacionalidad(rs.getString("NACIONALIDAD"));
+                persona.setFechaNacimiento(rs.getDate("FECHA_NACIMIENTO").toLocalDate());
+                persona.setEdad(rs.getInt("EDAD"));
+                persona.setGenero(rs.getString("GENERO"));
+                persona.setCorreoElectronico(rs.getString("CORREO_ELECTRONICO"));
+                persona.setContrasena(rs.getString("CONTRASENA"));
+                direccion.setProvincia(rs.getString("PROVINCIA"));
+                direccion.setCanton(rs.getString("CANTON"));
+                direccion.setDistrito(rs.getString("DISTRITO"));
+                direccion.setDetalleDireccion(rs.getString("DETALLE"));
+                persona.setDireccion(direccion);
                 personas.add(persona);
             }
             conn.close();
@@ -47,5 +60,46 @@ public class PersonaDAO {
             e.printStackTrace();
         }
         return personas;
+    }
+
+    /**
+     * Metodo para buscar una persona dada su identificacion
+     * @param idPersona es de tipo String y corresponde a la identificacion de la persona por buscar
+     */
+    public Persona buscarPersona(String idPersona)  {
+        Configuracion configuracion = new Configuracion();
+        Persona persona = new Persona();
+        Direccion direccion = new Direccion();
+        try{
+            Class.forName(configuracion.getClaseJDBC());
+            String strConexion = configuracion.getStringConexion();
+            Connection conn = null;
+            PreparedStatement stmt = null;
+            ResultSet rs = null;
+            conn = DriverManager.getConnection(strConexion);
+            String query = "SELECT * FROM PERSONA INNER JOIN DIRECCION ON PERSONA.ID = DIRECCION.ID_PERSONA WHERE PERSONA.ID=?";
+            stmt = conn.prepareStatement(query);
+            stmt.setString(1, idPersona);
+            rs = stmt.executeQuery();
+            if (rs.next()) {
+                persona.setId(rs.getString("ID"));
+                persona.setNombre(rs.getString("NOMBRE"));
+                persona.setApellidos(rs.getString("APELLIDOS"));
+                persona.setNacionalidad(rs.getString("NACIONALIDAD"));
+                persona.setFechaNacimiento(rs.getDate("FECHA_NACIMIENTO").toLocalDate());
+                persona.setEdad(rs.getInt("EDAD"));
+                persona.setGenero(rs.getString("GENERO"));
+                persona.setCorreoElectronico(rs.getString("CORREO_ELECTRONICO"));
+                persona.setContrasena(rs.getString("CONTRASENA"));
+                direccion.setProvincia(rs.getString("PROVINCIA"));
+                direccion.setCanton(rs.getString("CANTON"));
+                direccion.setDistrito(rs.getString("DISTRITO"));
+                direccion.setDetalleDireccion(rs.getString("DETALLE"));
+                persona.setDireccion(direccion);
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return persona;
     }
 }

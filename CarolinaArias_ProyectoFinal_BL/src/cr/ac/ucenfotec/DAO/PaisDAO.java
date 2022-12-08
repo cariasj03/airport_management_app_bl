@@ -2,6 +2,8 @@ package cr.ac.ucenfotec.DAO;
 
 import cr.ac.ucenfotec.config.Configuracion;
 import cr.ac.ucenfotec.entidades.Pais;
+import cr.ac.ucenfotec.entidades.Ubicacion;
+
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -106,5 +108,40 @@ public class PaisDAO {
         } catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Metodo para ver si un pais tiene aeropuertos asignados
+     * @param pais es de tipo Pais y corresponde al pais por verificar
+     * @return tieneAeropuertosAsignados es de tipo boolean y devuelve si el pais tiene aeropuertos asignados
+     */
+    public boolean tieneAeropuertosAsignados (Pais pais)
+    {
+        int cantidadApariciones = 0;
+        boolean tieneAeropuertosAsignados = false;
+        try {
+            Configuracion configuracion= new Configuracion();
+            Class.forName(configuracion.getClaseJDBC());
+            Connection conn = null;
+            PreparedStatement stmt = null;
+            ResultSet rs = null;
+            String strConexion = configuracion.getStringConexion();
+            String query = "SELECT COUNT(CODIGO_PAIS) AS 'CANTIDAD' FROM AEROPUERTO WHERE CODIGO_PAIS=?";
+            conn = DriverManager.getConnection(strConexion);
+            stmt = conn.prepareStatement(query);
+            stmt.setString(1, pais.getCodigo());
+            stmt.execute();
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                cantidadApariciones = rs.getInt(1);
+            }
+            if(cantidadApariciones > 0) {
+                tieneAeropuertosAsignados = true;
+            }
+
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return tieneAeropuertosAsignados;
     }
 }

@@ -112,7 +112,7 @@ public class TripulacionDAO {
     }
 
     /**
-     * Metodo para listar las tripulaciones
+     * Metodo para listar la cantidad de tripulantes de una tripulacion
      */
     public int cantidadTripulantes (Tripulacion tripulacion)
     {

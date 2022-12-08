@@ -84,16 +84,6 @@ public class GestorPersonas {
     }
 
     /**
-     * Metodo para verificar que las credenciales del administrador sean correctas
-     * @param tmpAdministrador es de tipo Administrador y corresponde al administrador por verificar
-     * @return login es de tipo boolean y devuelve si las credenciales del administrador son correctas
-     */
-    public boolean loginAdministrador (Administrador tmpAdministrador) {
-        boolean login = administradorDAO.loginAdministrador(tmpAdministrador);
-        return login;
-    }
-
-    /**
      * Metodo para crear un usuario
      * @param tmpUsuario es de tipo Usuario y corresponde al usuario por insertar
      * @return mensaje es de tipo String y devuelve un mensaje que indica si se creo con exito el usuario o no
@@ -269,5 +259,80 @@ public class GestorPersonas {
             }
         }
         return existeTripulante;
+    }
+
+    /**
+     * Metodo para verificar que las credenciales de la persona sean correctas
+     * @param tmpPersona es de tipo Persona y corresponde a la persona por verificar
+     * @return login es de tipo boolean y devuelve si las credenciales de la persona son correctas
+     */
+    public boolean verificarCredenciales (Persona tmpPersona) {
+        ArrayList<Persona> personas = personaDAO.listarPersonas();
+        boolean login = false;
+        for (Persona persona : personas) {
+            if(persona.equals(tmpPersona)) {
+                if(persona.getContrasena().equals(tmpPersona.getContrasena())){
+                    login = true;
+                }
+            }
+        }
+        return login;
+    }
+
+    /**
+     * Metodo para verificar que las credenciales de la persona sean correctas
+     * @param tmpPersona es de tipo Persona y corresponde a la persona por verificar
+     * @return login es de tipo boolean y devuelve si las credenciales de la persona son correctas
+     */
+    public boolean loginPersona (Persona tmpPersona) {
+        boolean login = false;
+        if(existePersona(tmpPersona.getId())) {
+            login = verificarCredenciales(tmpPersona);
+        }
+        return login;
+    }
+
+    /**
+     * Metodo para buscar una persona dada su identificacion
+     * @param idPersona es de tipo String y corresponde a la identificacion de la persona por buscar
+     * @return persona es de tipo Persona y corrresponde a la persona buscada
+     */
+    public Persona buscarPersona (String idPersona) {
+        Persona persona = new Persona();
+        if(existePersona(idPersona)){
+            persona = personaDAO.buscarPersona(idPersona);
+        } else {
+            persona = null;
+        }
+        return persona;
+    }
+
+    /**
+     * Metodo para saber el tipo de la persona
+     * @param tmpPersona es de tipo Persona y corresponde a la persona por verificar
+     * @return tipoPersona es de tipo int y devuelve el tipo de la persona
+     */
+    public int tipoPersona(Persona tmpPersona){
+        int tipoPersona = 0;
+
+        for (Administrador administrador:administradorDAO.listarAdministradores()) {
+            if (administrador.getId().equals(tmpPersona.getId())){
+                tipoPersona = 1;
+                break;
+            }
+        }
+        for (Usuario usuario : usuarioDAO.listarUsuarios()) {
+            if (usuario.getId().equals(tmpPersona.getId())) {
+                tipoPersona = 2;
+                break;
+            }
+        }
+        for (Tripulante tripulante : tripulanteDAO.listarTripulantes()) {
+            if (tripulante.getId().equals(tmpPersona.getId())) {
+                tipoPersona = 3;
+                break;
+            }
+        }
+        return tipoPersona;
     }
 }

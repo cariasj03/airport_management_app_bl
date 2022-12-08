@@ -2,6 +2,7 @@ package cr.ac.ucenfotec.logica;
 
 import cr.ac.ucenfotec.DAO.PaisDAO;
 import cr.ac.ucenfotec.entidades.Pais;
+import cr.ac.ucenfotec.entidades.Ubicacion;
 
 import java.util.ArrayList;
 
@@ -89,5 +90,13 @@ public class GestorPaises {
             mensaje = "El país fue eliminado con éxito.";
         }
         return mensaje;
+    }
+
+    /**
+     * Metodo para ver si un pais tiene aeropuertos asignados
+     * @param pais es de tipo Pais y corresponde al pais por verificar
+     */
+    public boolean tieneAeropuertosAsignados(Pais pais) {
+        return paisDAO.tieneAeropuertosAsignados(pais);
     }
 }

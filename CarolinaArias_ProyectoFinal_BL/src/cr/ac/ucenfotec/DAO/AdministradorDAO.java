@@ -108,25 +108,6 @@ public class AdministradorDAO {
     }
 
     /**
-     * Metodo para verificar que las credenciales del administrador sean correctas
-     * @param tmpAdministrador es de tipo Administrador y corresponde al administrador por verificar
-     * @return login es de tipo boolean y devuelve si las credenciales del administrador son correctas
-     */
-    public boolean loginAdministrador (Administrador tmpAdministrador) {
-        ArrayList<Administrador> administradores = listarAdministradores();
-        boolean login = false;
-
-        for (Administrador administrador: administradores) {
-            if(administrador.equals(tmpAdministrador)) {
-                if(administrador.getContrasena().equals(tmpAdministrador.getContrasena())) {
-                    login = true;
-                }
-            }
-        }
-        return login;
-    }
-
-    /**
      * Metodo para actualizar un administrador
      * @param administrador es de tipo Administrador y corresponde al administrador por actualizar
      */

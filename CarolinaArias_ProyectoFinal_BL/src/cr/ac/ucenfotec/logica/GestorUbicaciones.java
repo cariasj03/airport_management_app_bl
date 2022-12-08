@@ -93,4 +93,12 @@ public class GestorUbicaciones {
         }
         return mensaje;
     }
+
+    /**
+     * Metodo para verificar si el la ubicacion tiene una puerta asginada
+     * @param ubicacion es de tipo Ubicacion y corresponde a la ubicacion por verificar
+     */
+    public boolean tienePuertaAsignada(Ubicacion ubicacion) {
+        return ubicacionDAO.tienePuertaAsignada(ubicacion);
+    }
 }

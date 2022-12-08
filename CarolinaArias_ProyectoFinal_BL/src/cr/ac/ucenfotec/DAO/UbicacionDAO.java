@@ -1,6 +1,7 @@
 package cr.ac.ucenfotec.DAO;
 
 import cr.ac.ucenfotec.config.Configuracion;
+import cr.ac.ucenfotec.entidades.Tripulacion;
 import cr.ac.ucenfotec.entidades.Ubicacion;
 
 import java.sql.*;
@@ -117,5 +118,40 @@ public class UbicacionDAO {
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Metodo para verificar si la ubicacion tiene una puerta asginada
+     * @param ubicacion es de tipo Ubicacion y corresponde a la ubicacion por verificar
+     * @return tienePuertaAsignada es de tipo boolean y devuelve si la ubicacion tiene una puerta asginada
+     */
+    public boolean tienePuertaAsignada (Ubicacion ubicacion)
+    {
+        int cantidadApariciones = 0;
+        boolean tienePuertaAsignada = false;
+        try {
+            Configuracion configuracion= new Configuracion();
+            Class.forName(configuracion.getClaseJDBC());
+            Connection conn = null;
+            PreparedStatement stmt = null;
+            ResultSet rs = null;
+            String strConexion = configuracion.getStringConexion();
+            String query = "SELECT COUNT(CODIGO_UBICACION) AS 'CANTIDAD' FROM PUERTA WHERE CODIGO_UBICACION=?";
+            conn = DriverManager.getConnection(strConexion);
+            stmt = conn.prepareStatement(query);
+            stmt.setString(1, ubicacion.getCodigo());
+            stmt.execute();
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                cantidadApariciones = rs.getInt(1);
+            }
+            if(cantidadApariciones > 0) {
+                tienePuertaAsignada = true;
+            }
+
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return tienePuertaAsignada;
     }
 }
