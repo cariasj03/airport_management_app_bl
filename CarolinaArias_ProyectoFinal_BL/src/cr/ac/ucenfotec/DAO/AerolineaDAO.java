@@ -2,6 +2,7 @@ package cr.ac.ucenfotec.DAO;
 
 import cr.ac.ucenfotec.config.Configuracion;
 import cr.ac.ucenfotec.entidades.Aerolinea;
+import cr.ac.ucenfotec.entidades.Tripulacion;
 
 import java.io.InputStream;
 import java.sql.*;
@@ -167,5 +168,39 @@ public class AerolineaDAO {
             e.printStackTrace();
         }
         return aerolinea;
+    }
+
+    /**
+     * Metodo para ver si una aerolinea tiene vuelos asignados
+     * @param aerolinea es de tipo Aerolinea y corresponde a la aerolinea por verificar
+     * @return tieneVuelosAsignados es de tipo boolean y devuelve si la aerolinea tiene vuelos asignados
+     */
+    public boolean tieneVuelosAsignados (Aerolinea aerolinea)
+    {
+        int cantidadApariciones = 0;
+        boolean tieneVuelosAsignados = false;
+        try {
+            Configuracion configuracion= new Configuracion();
+            Class.forName(configuracion.getClaseJDBC());
+            Connection conn = null;
+            PreparedStatement stmt = null;
+            ResultSet rs = null;
+            String strConexion = configuracion.getStringConexion();
+            String query = "SELECT COUNT(CEDULA_JURIDICA_AEROLINEA) FROM VUELO WHERE CEDULA_JURIDICA_AEROLINEA=?";
+            conn = DriverManager.getConnection(strConexion);
+            stmt = conn.prepareStatement(query);
+            stmt.setString(1, aerolinea.getCedulaJuridica());
+            stmt.execute();
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                cantidadApariciones = rs.getInt(1);
+            }
+            if(cantidadApariciones > 0) {
+                tieneVuelosAsignados = true;
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return tieneVuelosAsignados;
     }
 }

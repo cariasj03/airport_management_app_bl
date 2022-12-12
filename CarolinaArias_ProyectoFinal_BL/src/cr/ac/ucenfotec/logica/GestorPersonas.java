@@ -335,4 +335,20 @@ public class GestorPersonas {
         }
         return tipoPersona;
     }
+
+    /**
+     * Metodo para actualizar una persona
+     * @param tmpPersona es de tipo Persona y corresponde a la persona por actualizar
+     * @return mensaje es de tipo String y devuelve un mensaje que indica si se actualizo con exito los datos de la persona o no
+     */
+    public String actualizarPersona(Persona tmpPersona) {
+        String mensaje;
+        if (!existePersona(tmpPersona.getId())) {
+            mensaje = "Los datos del perfil no pueden ser actualizados debido a que no existe en el sistema una persona registrada con ese ID.";
+        } else {
+            personaDAO.actualizarPersona(tmpPersona);
+            mensaje = "Los datos del perfil fueron actualizados con éxito.";
+        }
+        return mensaje;
+    }
 }

@@ -1,5 +1,6 @@
 package cr.ac.ucenfotec.logica;
 
+import cr.ac.ucenfotec.entidades.Puerta;
 import cr.ac.ucenfotec.entidades.Tripulacion;
 import cr.ac.ucenfotec.DAO.TripulacionDAO;
 import cr.ac.ucenfotec.entidades.Tripulante;
@@ -186,5 +187,13 @@ public class GestorTripulaciones {
      */
     public ArrayList<Tripulante> listarTripulantesDeTripulacion(Tripulacion tripulacion) {
         return tripulanteDAO.listarTripulantesDeTripulacion(tripulacion);
+    }
+
+    /**
+     * Metodo para ver si una tripulacion tiene vuelos asignados
+     * @param tripulacion es de tipo Tripulacion y corresponde a la tripulacion por verificar
+     */
+    public boolean tieneVuelosAsignados(Tripulacion tripulacion) {
+        return tripulacionDAO.tieneVuelosAsignados(tripulacion);
     }
 }

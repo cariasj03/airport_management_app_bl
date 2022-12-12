@@ -2,7 +2,6 @@ package cr.ac.ucenfotec.DAO;
 
 import cr.ac.ucenfotec.config.Configuracion;
 import cr.ac.ucenfotec.entidades.Aeropuerto;
-import cr.ac.ucenfotec.entidades.Direccion;
 import cr.ac.ucenfotec.entidades.Pais;
 
 import java.sql.*;
@@ -116,5 +115,48 @@ public class AeropuertoDAO {
             e.printStackTrace();
 
         }
+    }
+
+    /**
+     * Metodo para ver si un aeropuerto tiene vuelos asignados
+     * @param aeropuerto es de tipo Aeropuerto y corresponde al aeropuerto por verificar
+     * @return tieneVuelosAsignados es de tipo boolean y devuelve si el aeropuerto tiene vuelos asignados
+     */
+    public boolean tieneVuelosAsignados (Aeropuerto aeropuerto)
+    {
+        int cantidadApariciones = 0;
+        boolean tieneVuelosAsignados = false;
+        try {
+            Configuracion configuracion= new Configuracion();
+            Class.forName(configuracion.getClaseJDBC());
+            Connection conn = null;
+            PreparedStatement stmt = null;
+            ResultSet rs = null;
+            String strConexion = configuracion.getStringConexion();
+            String query = "SELECT COUNT(CODIGO_AEROPUERTO_SALIDA) FROM VUELO WHERE CODIGO_AEROPUERTO_SALIDA=?";
+            conn = DriverManager.getConnection(strConexion);
+            stmt = conn.prepareStatement(query);
+            stmt.setString(1, aeropuerto.getCodigo());
+            stmt.execute();
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                cantidadApariciones = rs.getInt(1);
+            }
+            String query1 = "SELECT COUNT(CODIGO_AEROPUERTO_LLEGADA) FROM VUELO WHERE CODIGO_AEROPUERTO_LLEGADA=?";
+            stmt = conn.prepareStatement(query1);
+            stmt.setString(1, aeropuerto.getCodigo());
+            stmt.execute();
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                cantidadApariciones = cantidadApariciones + rs.getInt(1);
+            }
+            if(cantidadApariciones > 0) {
+                tieneVuelosAsignados = true;
+            }
+
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return tieneVuelosAsignados;
     }
 }

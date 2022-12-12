@@ -1,10 +1,8 @@
 package cr.ac.ucenfotec.DAO;
 
 import cr.ac.ucenfotec.config.Configuracion;
-import cr.ac.ucenfotec.entidades.Direccion;
 import cr.ac.ucenfotec.entidades.Persona;
-
-
+import cr.ac.ucenfotec.entidades.Direccion;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -101,5 +99,44 @@ public class PersonaDAO {
             e.printStackTrace();
         }
         return persona;
+    }
+
+    /**
+     * Metodo para actualizar una persona
+     * @param persona es de tipo Persona y corresponde a la persona por actualizar
+     */
+    public void actualizarPersona(Persona persona) {
+        try {
+            Configuracion configuracion= new Configuracion();
+            Class.forName(configuracion.getClaseJDBC());
+            Connection conn = null;
+            PreparedStatement stmt1 = null;
+            PreparedStatement stmt2 = null;
+            String strConexion = configuracion.getStringConexion();
+            String query1 = "UPDATE PERSONA SET NOMBRE=?,APELLIDOS=?,NACIONALIDAD=?,FECHA_NACIMIENTO=?,EDAD=?,GENERO=?,CORREO_ELECTRONICO=?, CONTRASENA=? WHERE ID=?";
+            conn = DriverManager.getConnection(strConexion);
+            stmt1 = conn.prepareStatement(query1);
+            stmt1.setString(1,persona.getNombre());
+            stmt1.setString(2,persona.getApellidos());
+            stmt1.setString(3,persona.getNacionalidad());
+            stmt1.setDate(4, java.sql.Date.valueOf(persona.getFechaNacimiento()));
+            stmt1.setInt(5,persona.getEdad());
+            stmt1.setString(6,persona.getGenero());
+            stmt1.setString(7,persona.getCorreoElectronico());
+            stmt1.setString(8,persona.getContrasena());
+            stmt1.setString(9,persona.getId());
+            stmt1.execute();
+
+            String query2 = "UPDATE DIRECCION SET PROVINCIA=?,CANTON=?,DISTRITO=?,DETALLE=? WHERE ID_PERSONA=?";
+            stmt2 = conn.prepareStatement(query2);
+            stmt2.setString(1,persona.getDireccion().getProvincia());
+            stmt2.setString(2,persona.getDireccion().getCanton());
+            stmt2.setString(3,persona.getDireccion().getDistrito());
+            stmt2.setString(4,persona.getDireccion().getDetalleDireccion());
+            stmt2.setString(5,persona.getId());
+            stmt2.execute();
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

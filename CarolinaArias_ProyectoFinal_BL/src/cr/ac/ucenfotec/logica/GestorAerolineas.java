@@ -2,6 +2,7 @@ package cr.ac.ucenfotec.logica;
 
 import cr.ac.ucenfotec.DAO.AerolineaDAO;
 import cr.ac.ucenfotec.entidades.Aerolinea;
+import cr.ac.ucenfotec.entidades.Tripulacion;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -120,5 +121,13 @@ public class GestorAerolineas {
     public Aerolinea buscarAerolinea (String cedulaJuridica)
     {
         return aerolineaDAO.buscarAerolinea(cedulaJuridica);
+    }
+
+    /**
+     * Metodo para ver si una aerolinea tiene vuelos asignados
+     * @param aerolinea es de tipo Aerolinea y corresponde a la aerolinea por verificar
+     */
+    public boolean tieneVuelosAsignados(Aerolinea aerolinea) {
+        return aerolineaDAO.tieneVuelosAsignados(aerolinea);
     }
     }

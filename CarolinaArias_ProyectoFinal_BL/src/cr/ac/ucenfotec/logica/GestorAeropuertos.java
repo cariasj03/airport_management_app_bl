@@ -89,4 +89,12 @@ public class GestorAeropuertos {
         }
         return mensaje;
     }
+
+    /**
+     * Metodo para ver si un aeropuerto tiene vuelos asignados
+     * @param aeropuerto es de tipo Aeropuerto y corresponde al aeropuerto por verificar
+     */
+    public boolean tieneVuelosAsignados(Aeropuerto aeropuerto) {
+        return aeropuertoDAO.tieneVuelosAsignados(aeropuerto);
+    }
 }

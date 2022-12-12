@@ -1,6 +1,7 @@
 package cr.ac.ucenfotec.logica;
 
 import cr.ac.ucenfotec.DAO.PuertaDAO;
+import cr.ac.ucenfotec.entidades.Aeropuerto;
 import cr.ac.ucenfotec.entidades.Puerta;
 import java.util.ArrayList;
 
@@ -88,5 +89,13 @@ public class GestorPuertas {
             mensaje = "La puerta fue eliminada con éxito.";
         }
         return mensaje;
+    }
+
+    /**
+     * Metodo para ver si una puerta tiene vuelos asignados
+     * @param puerta es de tipo Puerta y corresponde a la puerta por verificar
+     */
+    public boolean tieneVuelosAsignados(Puerta puerta) {
+        return puertaDAO.tieneVuelosAsignados(puerta);
     }
 }

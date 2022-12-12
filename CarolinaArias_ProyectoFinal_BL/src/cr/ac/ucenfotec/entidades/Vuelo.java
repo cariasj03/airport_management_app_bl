@@ -101,7 +101,7 @@ public class Vuelo {
     }
 
     /**
-     * Este es un constructor con los atributos de tipo nativo + aeropuertos
+     * Este es un constructor con los atributos de tipo nativo + aeropuertos, aeorlinea, tripulacion y puertas
      * @param numeroVuelo es de tipo int y corresponde al numero del vuelo
      * @param horaSalida es de tipo LocalTime y corresponde a la hora de salida del vuelo
      * @param horaLlegada es de tipo LocalTime y corresponde a la hora de llegada del vuelo
@@ -111,7 +111,7 @@ public class Vuelo {
      * @param precioAsientos es de tipo double y corresponde al precio de los asientos del vuelo
      * @param montoImpuesto es de tipo double y corresponde al monto del impuesto para los tiquetes del vuelo
      */
-    public Vuelo(int numeroVuelo, LocalTime horaSalida, LocalTime horaLlegada, String estado, String tipoVuelo, int cantAsientosDiponibles, double precioAsientos, double montoImpuesto, Aeropuerto aeropuertoOrigen, Aeropuerto aeropuertoDestino) {
+    public Vuelo(int numeroVuelo, LocalTime horaSalida, LocalTime horaLlegada, String estado, String tipoVuelo, int cantAsientosDiponibles, double precioAsientos, double montoImpuesto, Aeropuerto aeropuertoOrigen, Aeropuerto aeropuertoDestino, Aerolinea aerolinea, Tripulacion tripulacion, Puerta puertaLlegada, Puerta puertaSalida) {
         this.numeroVuelo = numeroVuelo;
         this.horaSalida = horaSalida;
         this.horaLlegada = horaLlegada;
@@ -122,6 +122,10 @@ public class Vuelo {
         this.montoImpuesto = montoImpuesto;
         this.aeropuertoOrigen = aeropuertoOrigen;
         this.aeropuertoDestino = aeropuertoDestino;
+        this.aerolinea = aerolinea;
+        this.tripulacion = tripulacion;
+        this.puertaLlegada = puertaLlegada;
+        this.puertaSalida = puertaSalida;
         this.tiquetes = new ArrayList<Tiquete>();
     }
 

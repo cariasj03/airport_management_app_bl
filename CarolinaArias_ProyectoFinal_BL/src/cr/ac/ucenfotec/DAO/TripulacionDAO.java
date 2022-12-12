@@ -1,6 +1,7 @@
 package cr.ac.ucenfotec.DAO;
 
 import cr.ac.ucenfotec.config.Configuracion;
+import cr.ac.ucenfotec.entidades.Puerta;
 import cr.ac.ucenfotec.entidades.Tripulacion;
 
 import java.sql.*;
@@ -138,6 +139,41 @@ public class TripulacionDAO {
             e.printStackTrace();
         }
         return cantidadTripulantes;
+    }
+
+    /**
+     * Metodo para ver si una tripulacion tiene vuelos asignados
+     * @param tripulacion es de tipo Tripulacion y corresponde a la tripulacion por verificar
+     * @return tieneVuelosAsignados es de tipo boolean y devuelve si la tripulacion tiene vuelos asignados
+     */
+    public boolean tieneVuelosAsignados (Tripulacion tripulacion)
+    {
+        int cantidadApariciones = 0;
+        boolean tieneVuelosAsignados = false;
+        try {
+            Configuracion configuracion= new Configuracion();
+            Class.forName(configuracion.getClaseJDBC());
+            Connection conn = null;
+            PreparedStatement stmt = null;
+            ResultSet rs = null;
+            String strConexion = configuracion.getStringConexion();
+            String query = "SELECT COUNT(CODIGO_TRIPULACION) FROM VUELO WHERE CODIGO_TRIPULACION=?";
+            conn = DriverManager.getConnection(strConexion);
+            stmt = conn.prepareStatement(query);
+            stmt.setString(1, tripulacion.getCodigo());
+            stmt.execute();
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                cantidadApariciones = rs.getInt(1);
+            }
+            if(cantidadApariciones > 0) {
+                tieneVuelosAsignados = true;
+            }
+
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return tieneVuelosAsignados;
     }
 }
 
